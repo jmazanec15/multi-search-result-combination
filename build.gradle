@@ -3,14 +3,13 @@ import org.opensearch.gradle.test.RestIntegTestTask
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'opensearch.opensearchplugin'
-apply plugin: 'opensearch.yaml-rest-test'
 apply plugin: 'opensearch.pluginzip'
 
-def pluginName = 'rename'
-def pluginDescription = 'Custom plugin'
+def pluginName = 'opensearch-searchmerger'
+def pluginDescription = 'Plugin that takes a combination of search results and merges them'
 def projectPath = 'org.opensearch'
-def pathToPlugin = 'path.to.plugin'
-def pluginClassName = 'RenamePlugin'
+def pathToPlugin = 'searchmerger'
+def pluginClassName = 'SearchResultMergerPlugin'
 
 tasks.register("preparePluginPathDirs") {
     mustRunAfter clean
@@ -18,7 +17,6 @@ tasks.register("preparePluginPathDirs") {
         def newPath = pathToPlugin.replace(".", "/")
         mkdir "src/main/java/org/opensearch/$newPath"
         mkdir "src/test/java/org/opensearch/$newPath"
-        mkdir "src/yamlRestTest/java/org/opensearch/$newPath"
     }
 }
 
@@ -37,7 +35,7 @@ publishing {
               developers {
                 developer {
                   name = "OpenSearch"
-                  url = "https://github.com/opensearch-project/opensearch-plugin-template-java"
+                  url = "https://github.com/jmazanec15/multi-search-result-combination"
                 }
               }
             }
@@ -60,7 +58,7 @@ validateNebulaPom.enabled = false
 
 buildscript {
     ext {
-        opensearch_version = System.getProperty("opensearch.version", "2.0.0-SNAPSHOT")
+        opensearch_version = System.getProperty("opensearch.version", "2.2.0-SNAPSHOT")
     }
 
     repositories {
